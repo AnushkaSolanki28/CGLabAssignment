@@ -1,8 +1,7 @@
 /*
- * CGM Lab Assignment - 2
- * Question: Write a C/C++ program using a graphics library or tool to implement
- *           the Digital Differential Analyzer (DDA) Line Drawing Algorithm to
- *           draw a straight line between two given points.
+ * CGM Lab Assignment - 1
+ * Question: Write a C/C++ program using graphics library to draw basic shapes
+ *           (Straight Line, Circle, Rectangle, and Triangle).
  *
  * SUBMITTED BY : Anushka Solanki
  * Roll No      : IC-2K24-20
@@ -11,62 +10,67 @@
 #include <graphics.h>
 #include <conio.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-int roundOff(float v)
-{
-    return (int)floor(v + 0.5f);
-}
-
-void ddaLine(int x1, int y1, int x2, int y2, int color)
-{
-    int dx = x2 - x1;
-    int dy = y2 - y1;
-    int steps = 0;
-
-    /* steps = max(|dx|, |dy|) */
-    if (abs(dx) > abs(dy))
-    {
-        steps = abs(dx);
-    }
-    else
-    {
-        steps = abs(dy);
-    }
-
-    
-    float xInc = (float)dx / steps;
-    float yInc = (float)dy / steps;
-
-    float x = (float)x1;
-    float y = (float)y1;
-
-    for (int i = 0; i <= steps; i++)
-    {
-        putpixel(roundOff(x), roundOff(y), color);
-        x += xInc;
-        y += yInc;
-    }
-}
 
 int main()
 {
-    /* Hardcoded input points */
-    int x1 = 60,  y1 = 150;
-    int x2 = 580, y2 = 400;
-
     int gd = DETECT, gm;
     initgraph(&gd, &gm, (char*)"");
 
-    /* Name */
+    // Black background
+    setbkcolor(BLACK);
+    cleardevice();
+
+    // Heading
     setcolor(WHITE);
-    outtextxy(140, 30, (char*)"Name: Anushka Solanki  |  Roll No: IC-2K24-20");
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+    outtextxy(140, 25, (char*)"CGM LAB ASSIGNMENT - 01");
 
-    /* DDA line */
-    ddaLine(x1, y1, x2, y2, WHITE);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
+    outtextxy(260, 55, (char*)"Basic Shapes");
+    outtextxy(140, 80, (char*)"Name: Anushka Solanki | Roll No: IC-2K24-20");
 
+    // Red outer border
+    setcolor(RED);
+    setlinestyle(SOLID_LINE, 0, THICK_WIDTH);
+    rectangle(20, 110, 620, 430);
+
+    // Red dividing lines (2x2 grid)
+    line(320, 110, 320, 430);
+    line(20, 270, 620, 270);
+
+    // White shape labels
+    setcolor(WHITE);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
+    outtextxy(35, 120, (char*)"1. Straight Line");
+    outtextxy(335, 120, (char*)"2. Circle");
+    outtextxy(35, 280, (char*)"3. Rectangle");
+    outtextxy(335, 280, (char*)"4. Triangle");
+
+    // Set line style for shapes
+    setlinestyle(SOLID_LINE, 0, NORM_WIDTH);
+
+    // 1. Straight Line
+    setcolor(WHITE);
+    line(50, 195, 290, 195);
+
+    // 2. Circle
+    setcolor(WHITE);
+    circle(470, 195, 50);
+
+    // 3. Rectangle
+    setcolor(WHITE);
+    rectangle(60, 330, 280, 400);
+
+    // 4. Triangle
+    setcolor(WHITE);
+    line(390, 400, 470, 320);
+    line(470, 320, 550, 400);
+    line(550, 400, 390, 400);
+
+    // Wait for key press before closing
     getch();
+
+    // Close graphics
     closegraph();
 
     return 0;

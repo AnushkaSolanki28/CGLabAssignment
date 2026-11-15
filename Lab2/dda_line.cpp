@@ -1,4 +1,3 @@
-
 /*
  * CGM Lab Assignment - 2
  * Question: Write a C/C++ program using a graphics library or tool
@@ -69,10 +68,18 @@ int main()
 
     // Accept starting and ending points
     printf("Enter starting point (x1 y1): ");
-    scanf("%d %d", &x1, &y1);
+    if (scanf("%d %d", &x1, &y1) != 2)
+    {
+        printf("\nInvalid input! Please enter two integers.\n");
+        return 1;
+    }
 
     printf("Enter ending point (x2 y2): ");
-    scanf("%d %d", &x2, &y2);
+    if (scanf("%d %d", &x2, &y2) != 2)
+    {
+        printf("\nInvalid input! Please enter two integers.\n");
+        return 1;
+    }
 
     // Validate coordinates
     if (x1 < 20 || x1 > 620 || x2 < 20 || x2 > 620 ||
@@ -104,6 +111,10 @@ int main()
     int gd = DETECT, gm;
     initgraph(&gd, &gm, (char*)"");
 
+    // Black background
+    setbkcolor(BLACK);
+    cleardevice();
+
     // Display heading
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
     setcolor(WHITE);
@@ -118,7 +129,11 @@ int main()
 
     // Draw boundary of drawing area
     setcolor(RED);
+    setlinestyle(SOLID_LINE, 0, THICK_WIDTH);
     rectangle(20, 110, 620, 430);
+
+    // Reset line style
+    setlinestyle(SOLID_LINE, 0, NORM_WIDTH);
 
     // Draw line using DDA algorithm
     ddaLine(x1, y1, x2, y2, WHITE);
